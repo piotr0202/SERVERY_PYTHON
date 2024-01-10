@@ -1,0 +1,16 @@
+@startuml
+abstract class Server {
+- n_max_returned_entries: int
++ {abstract} get_entries(n_letters: int = 1): List[Product] 
+}
+class MapServer {
+- __products: Dict[str, Product]
+}
+class ListServer
+class Client
+class Product
+
+Server <|.. MapServer
+Server <|.. ListServer
+Client o-- Server
+@enduml
