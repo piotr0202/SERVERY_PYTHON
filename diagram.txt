@@ -1,16 +1,34 @@
 @startuml
-abstract class Server {
-- n_max_returned_entries: int
+hide empty members
+interface Server << interface >> {
+- {static} n_max_returned_entries: int
 + {abstract} get_entries(n_letters: int = 1): List[Product] 
 }
 class MapServer {
 - __products: Dict[str, Product]
++ get_entries(n_letters: int = 1): List[Product] 
 }
-class ListServer
-class Client
-class Product
+class ListServer {
+- __products: List[Product]
++ get_entries(n_letters: int = 1): List[Product]
+}
+class Client {
+- server: Server
++ get_total_price(n_letters: Optional[int]): Optional[float]
+}
+class Product {
+- name: str
+- price: float
++ __eg__(other: Product): bool
++ __hash__(): int
+}
+class listTooLong
 
 Server <|.. MapServer
 Server <|.. ListServer
-Client o-- Server
+Client ..> Server : << uses >>
+ListServer ..> Product : << uses >>
+MapServer ..> Product : << uses >>
+ListServer ..> listTooLong : << throws >>
+MapServer ..> listTooLong : << throws >>
 @enduml
