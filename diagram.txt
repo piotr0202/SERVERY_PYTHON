@@ -5,18 +5,22 @@ interface Server << interface >> {
 + {abstract} get_entries(n_letters: int = 1): List[Product] 
 }
 class MapServer {
++ MapServer(strProd: Dict[str, Product])
 - __products: Dict[str, Product]
 + get_entries(n_letters: int = 1): List[Product] 
 }
 class ListServer {
++ ListServer(strProd: List[Product])
 - __products: List[Product]
 + get_entries(n_letters: int = 1): List[Product]
 }
 class Client {
++ Client(server: Server)
 - server: Server
 + get_total_price(n_letters: Optional[int]): Optional[float]
 }
 class Product {
++ Product(name: str, price: float)
 - name: str
 - price: float
 + __eg__(other: Product): bool
